@@ -1,0 +1,47 @@
+{
+  "type": "tabs",
+  "items": {
+    "modemSettings": {
+      "type": "panel",
+      "label": "Modem Settings",
+      "items": {
+        "modemPath": {
+          "type": "text",
+          "label": "Modem Path",
+          "help": "The path to the modem (e.g., /dev/ttyUSB0)",
+          "default": "/dev/ttyUSB0"
+        },
+        "baudRate": {
+          "type": "number",
+          "label": "Baud Rate",
+          "help": "The baud rate for the modem (e.g., 9600)",
+          "default": 9600
+        }
+      }
+    },
+    "userSettings": {
+      "type": "panel",
+      "label": "User Settings",
+      "items": {
+        "users": {
+          "type": "array",
+          "label": "Users",
+          "items": {
+            "phoneNumber": {
+              "type": "text",
+              "label": "Phone Number"
+            },
+            "permissions": {
+              "type": "array",
+              "label": "Permissions",
+              "items": {
+                "type": "text",
+                "label": "Permission"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

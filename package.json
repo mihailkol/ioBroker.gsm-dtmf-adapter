@@ -1,0 +1,58 @@
+{
+  "name": "iobroker.gsm-dtmf-adapter",
+  "version": "0.0.1",
+  "description": "Adapter for controlling devices via GSM modem with DTMF",
+  "author": {
+    "name": "Mikhail Kolesnikov",
+    "email": "m89139158466@gmail.com"
+  },
+  "homepage": "https://github.com/mihailkol/ioBroker.gsm-dtmf-adapter",
+  "license": "GPL-3.0",
+  "keywords": [
+    "gsm",
+    "dtmf"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mihailkol/ioBroker.gsm-dtmf-adapter.git"
+  },
+  "engines": {
+    "node": ">= 20"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.2.3",
+    "@serialport/parser-readline": "^13.0.0",
+    "serialport": "^13.0.0"
+  },
+  "devDependencies": {
+    "@iobroker/adapter-dev": "^1.4.0",
+    "@iobroker/testing": "^5.0.3",
+    "chai": "^4.5.0",
+    "chai-as-promised": "^7.1.2",
+    "mocha": "^11.1.0",
+    "proxyquire": "^2.1.3",
+    "sinon": "^19.0.2",
+    "sinon-chai": "^3.7.0"
+  },
+  "main": "main.js",
+  "files": [
+    "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).{json,json5}",
+    "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
+    "lib/",
+    "www/",
+    "io-package.json",
+    "LICENSE",
+    "main.js"
+  ],
+  "scripts": {
+    "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
+    "test:package": "mocha test/package --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:js && npm run test:package",
+    "translate": "translate-adapter"
+  },
+  "bugs": {
+    "url": "https://github.com/mihailkol/ioBroker.gsm-dtmf-adapter/issues"
+  },
+  "readmeFilename": "README.md"
+}
