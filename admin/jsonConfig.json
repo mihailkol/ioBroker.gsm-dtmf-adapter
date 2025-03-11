@@ -27,19 +27,16 @@
           "type": "array",
           "label": "Users",
           "items": {
-            "phoneNumber": {
+            "name": {
+              "type": "text",
+              "label": "Name"
+            },
+            "phone": {
               "type": "text",
               "label": "Phone Number"
-            },
-            "permissions": {
-              "type": "array",
-              "label": "Permissions",
-              "items": {
-                "type": "text",
-                "label": "Permission"
-              }
             }
-          }
+          },
+          "newItemButton": "Add User" // Кнопка для добавления нового пользователя
         }
       }
     }
