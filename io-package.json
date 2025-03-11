@@ -24,13 +24,8 @@
         }
     },
     "native": {
-        "modemPath": "/dev/ttyUSB0",
-        "baudRate": 9600,
-        "users": [
-            {
-                "name": "Mikhail Kolesnikov",
-                "phone": "+79139158466"
-            }
-        ]
+      "modemPath": "/dev/ttyUSB0",
+      "baudRate": 9600,
+      "users": []
     }
 }
