@@ -26,6 +26,7 @@
         "users": {
           "type": "array",
           "label": "Users",
+          "newItemButton": "Add User", // Кнопка для добавления нового пользователя
           "items": {
             "name": {
               "type": "text",
@@ -35,8 +36,7 @@
               "type": "text",
               "label": "Phone Number"
             }
-          },
-          "newItemButton": "Add User" // Кнопка для добавления нового пользователя
+          }
         }
       }
     }
