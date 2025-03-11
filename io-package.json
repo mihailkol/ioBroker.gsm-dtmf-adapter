@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "gsm-dtmf-adapter",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "title": "GSM DTMF Adapter",
     "desc": {
       "en": "Adapter for controlling devices via GSM modem with DTMF",
@@ -27,6 +27,10 @@
   "native": {
     "modemPath": "/dev/ttyUSB0",
     "baudRate": 9600,
-    "users": []
-  }
+  "users": [
+    {
+      "name": "Mikhail Kolesnikov",
+      "phone": "+79139158466"
+    }
+  ]
 }
