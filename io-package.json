@@ -26,6 +26,17 @@
     "native": {
       "modemPath": "/dev/ttyUSB0",
       "baudRate": 9600,
-      "users": []
+      "user1": {
+        "name1": "",
+        "phone1": ""
+      },
+      "user2": {
+        "name2": "",
+        "phone2": ""
+      },
+      "user3": {
+        "name3": "",
+        "phone3": ""
+      }
     }
 }
