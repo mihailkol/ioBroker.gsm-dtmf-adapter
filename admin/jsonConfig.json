@@ -17,7 +17,7 @@
     "users": {
       "type": "array",
       "label": "Users",
-      "newItemButton": "Add User", // Кнопка для добавления нового пользователя
+      "newItemButton": "Add User", 
       "items": {
         "name": {
           "type": "text",
