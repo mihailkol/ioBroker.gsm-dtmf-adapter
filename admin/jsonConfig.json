@@ -3,7 +3,7 @@
   "items": {
     "modemSettings": {
       "type": "panel",
-      "label": "Modem Settings",
+      "label": "Modem1 Settings",
       "items": {
         "modemPath": {
           "type": "text",
