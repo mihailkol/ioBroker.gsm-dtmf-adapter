@@ -14,16 +14,43 @@
       "help": "The baud rate for the modem (e.g., 9600)",
       "default": 9600
     },
-    "users": {
-      "type": "array",
-      "label": "Users",
-      "newItemButton": "Add User",
+    "user1": {
+      "type": "panel",
+      "label": "User 1",
       "items": {
-        "name": {
+        "name1": {
           "type": "text",
           "label": "Name"
         },
-        "phone": {
+        "phone1": {
+          "type": "text",
+          "label": "Phone Number"
+        }
+      }
+    },
+    "user2": {
+      "type": "panel",
+      "label": "User 2",
+      "items": {
+        "name2": {
+          "type": "text",
+          "label": "Name"
+        },
+        "phone2": {
+          "type": "text",
+          "label": "Phone Number"
+        }
+      }
+    },
+    "user3": {
+      "type": "panel",
+      "label": "User 3",
+      "items": {
+        "name3": {
+          "type": "text",
+          "label": "Name"
+        },
+        "phone3": {
           "type": "text",
           "label": "Phone Number"
         }
