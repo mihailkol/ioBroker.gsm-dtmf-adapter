@@ -9,7 +9,7 @@
     },
     "platform": "Javascript/Node.js",
     "mode": "daemon",
-    "icon": "gsm.png",
+    "icon": "gsm-dtmf-adapter.png",
     "enabled": true,
     "extIcon": "https://iobroker.live/assets/gsm.png",
     "keywords": [
