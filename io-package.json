@@ -1,36 +1,36 @@
 {
-  "common": {
-    "name": "gsm-dtmf-adapter",
-    "version": "0.0.5",
-    "title": "GSM DTMF Adapter",
-    "desc": {
-      "en": "Adapter for controlling devices via GSM modem with DTMF",
-      "de": "Adapter zur Steuerung von Geräten über GSM-Modem mit DTMF"
+    "common": {
+        "name": "gsm-dtmf-adapter",
+        "version": "0.0.1",
+        "title": "GSM DTMF Adapter",
+        "desc": {
+            "en": "Adapter for controlling devices via GSM modem with DTMF",
+            "de": "Adapter zur Steuerung von Geräten über GSM-Modem mit DTMF"
+        },
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "icon": "gsm.png",
+        "enabled": true,
+        "extIcon": "https://iobroker.live/assets/gsm.png",
+        "keywords": [
+            "gsm",
+            "dtmf",
+            "modem"
+        ],
+        "readme": "https://github.com/your-repo/gsm-dtmf-adapter/blob/main/README.md",
+        "materialize": true,
+        "adminUI": {
+            "config": "json"
+        }
     },
-    "platform": "Javascript/Node.js",
-    "mode": "daemon",
-    "icon": "gsm-dtmf-adapter.png",
-    "enabled": true,
-    "extIcon": "https://iobroker.live/assets/gsm.png",
-    "keywords": [
-      "gsm",
-      "dtmf",
-      "modem"
-    ],
-    "readme": "https://github.com/your-repo/gsm-dtmf-adapter/blob/main/README.md",
-    "materialize": true,
-    "adminUI": {
-      "config": "json"
-    },
-    "installedFrom": "/opt/iobroker/ioBroker.gsm-dtmf-adapter"
-  },
-"native": {
-  "modemPath": "/dev/ttyUSB0",
-  "baudRate": 9600,
-  "users": [
-    {
-      "name": "Mikhail Kolesnikov",
-      "phone": "+79139158466"
+    "native": {
+        "modemPath": "/dev/ttyUSB0",
+        "baudRate": 9600,
+        "users": [
+            {
+                "name": "Mikhail Kolesnikov",
+                "phone": "+79139158466"
+            }
+        ]
     }
-  ]
 }
