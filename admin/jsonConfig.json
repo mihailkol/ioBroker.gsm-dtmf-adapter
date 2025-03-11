@@ -1,10 +1,11 @@
+
 {
   "i18n": true,
   "type": "tabs",
   "items": {
     "modemSettings": {
       "type": "panel",
-      "label": "Modem1 Settings",
+      "label": "Modem Settings",
       "items": {
         "modemPath": {
           "type": "text",
