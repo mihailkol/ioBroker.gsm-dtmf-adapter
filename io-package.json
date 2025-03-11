@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "gsm-dtmf-adapter",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "title": "GSM DTMF Adapter",
     "desc": {
       "en": "Adapter for controlling devices via GSM modem with DTMF",
