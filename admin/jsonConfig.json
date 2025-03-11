@@ -1,6 +1,6 @@
 {
-  "type": "panel",
-  "label": "Settings",
+  "i18n": true,
+  "type": "tabs",
   "items": {
     "modemPath": {
       "type": "text",
