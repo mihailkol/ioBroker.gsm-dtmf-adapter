@@ -57,33 +57,39 @@ class GsmDtmfAdapter extends utils.Adapter {
         if (users && users.val) {
             this.users = JSON.parse(users.val);
         } else {
-            this.users = {}; // Инициализация пустой базы
+            this.users = []; // Инициализация пустого массива
         }
-        this.log.info('Users loaded');
+        this.log.info('Users loaded:', this.users);
     }
 
-async initModem() {
-    try {
-        const modemPath = this.config.modemPath || '/dev/ttyUSB0';
-        const baudRate = this.config.baudRate || 9600;
+    async saveUsers() {
+        // Сохранение пользователей в базу данных ioBroker
+        await this.setStateAsync('users', JSON.stringify(this.users), true);
+        this.log.info('Users saved');
+    }        
 
-        this.port = new SerialPort({ path: modemPath, baudRate: baudRate });
-        this.parser = this.port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
-
-        this.port.on('open', () => {
-            this.log.info('Modem connected');
-            this.sendAtCommand('AT');
-        });
-
-        this.port.on('error', (err) => {
-            this.log.error('Modem error:', err);
+    async initModem() {
+        try {
+            const modemPath = this.config.modemPath || '/dev/ttyUSB0';
+            const baudRate = this.config.baudRate || 9600;
+    
+            this.port = new SerialPort({ path: modemPath, baudRate: baudRate });
+            this.parser = this.port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+    
+            this.port.on('open', () => {
+                this.log.info('Modem connected');
+                this.sendAtCommand('AT');
+            });
+    
+            this.port.on('error', (err) => {
+                this.log.error('Modem error:', err);
+                setTimeout(() => this.initModem(), 5000); // Повторная попытка через 5 секунд
+            });
+        } catch (err) {
+            this.log.error('Failed to initialize modem:', err);
             setTimeout(() => this.initModem(), 5000); // Повторная попытка через 5 секунд
-        });
-    } catch (err) {
-        this.log.error('Failed to initialize modem:', err);
-        setTimeout(() => this.initModem(), 5000); // Повторная попытка через 5 секунд
+        }
     }
-}
 
     async sendAtCommand(command) {
         if (this.port && this.port.isOpen) {
@@ -116,12 +122,17 @@ async initModem() {
     }
 
     async handleIncomingCall() {
-        // Логика обработки входящего вызова
         const callerId = await this.getCallerId();
         this.log.info(`Call from: ${callerId}`);
-        // Дополнительная логика...
+    
+        // Проверка, есть ли пользователь с таким номером
+        const user = this.users.find(u => u.phone === callerId);
+        if (user) {
+            this.log.info(`User ${user.name} is authorized`);
+        } else {
+            this.log.warn(`User with phone ${callerId} is not authorized`);
+        }
     }
-
     async handleDtmfCommand(dtmf) {
         // Логика обработки DTMF-команд
         this.log.info(`Executing DTMF command: ${dtmf}`);
