@@ -24,13 +24,13 @@
     },
     "installedFrom": "/opt/iobroker/ioBroker.gsm-dtmf-adapter"
   },
-  "native": {
-    "modemPath": "/dev/ttyUSB0",
-    "baudRate": 9600,
+"native": {
+  "modemPath": "/dev/ttyUSB0",
+  "baudRate": 9600,
   "users": [
     {
       "name": "Mikhail Kolesnikov",
       "phone": "+79139158466"
-    },
-  ],
+    }
+  ]
 }
