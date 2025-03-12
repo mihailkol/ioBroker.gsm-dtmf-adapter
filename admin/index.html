@@ -1,0 +1,43 @@
+   <!DOCTYPE html>
+   <html>
+   <head>
+       <title>GSM Adapter Settings</title>
+   </head>
+   <body>
+       <h1>GSM Adapter Settings</h1>
+       <form id="settingsForm">
+           <label for="port">Port:</label>
+           <input type="text" id="port" name="port"><br>
+
+           <label for="baudRate">Baud Rate:</label>
+           <input type="number" id="baudRate" name="baudRate"><br>
+
+           <h2>Users</h2>
+           <table id="usersTable">
+               <tr>
+                   <th>Name</th>
+                   <th>Phone</th>
+               </tr>
+               <!-- Здесь будут динамически добавляться строки пользователей -->
+           </table>
+
+           <h2>Devices</h2>
+           <table id="devicesTable">
+               <tr>
+                   <th>Controlled Object</th>
+                   <th>DTMF Command</th>
+                   <th>User</th>
+               </tr>
+               <!-- Здесь будут динамически добавляться строки устройств -->
+           </table>
+
+           <button type="submit">Save Settings</button>
+       </form>
+
+       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       <script>
+           // Здесь вы можете добавить код для работы с таблицами пользователей и устройств
+       </script>
+   </body>
+   </html>
+   
