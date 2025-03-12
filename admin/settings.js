@@ -40,6 +40,7 @@ function deleteDevice(button) {
   row.remove();
 }
 
+// Функция для сохранения настроек
 function saveSettings() {
   const modemPort = document.getElementById('modemPort').value;
   const baudRate = document.getElementById('baudRate').value;
@@ -81,47 +82,59 @@ function saveSettings() {
     devices
   };
 
-  // Отправка настроек на сервер
-console.log('Saving settings:', settings); // Логирование данных перед отправкой
-socket.emit('setObject', 'system.adapter.gsm-dtmf-adapter.0', { native: settings }, function (err) {
-  if (err) {
-    console.error('Error saving settings:', err); // Логирование ошибки
-    alert('Error saving settings: ' + err);
-  } else {
-    console.log('Settings saved successfully!'); // Логирование успеха
-    alert('Settings saved successfully!');
-    loadSettings(); // Перезагрузка данных после сохранения
-  }
-});
+  // Логирование данных перед отправкой
+  console.log('Saving settings:', settings);
 
-// Загрузка настроек при открытии страницы
+  // Отправка настроек на сервер
+  socket.emit('setObject', 'system.adapter.gsm-dtmf-adapter.0', { native: settings }, function (err) {
+    if (err) {
+      console.error('Error saving settings:', err); // Логирование ошибки
+      alert('Error saving settings: ' + err);
+    } else {
+      console.log('Settings saved successfully!'); // Логирование успеха
+      alert('Settings saved successfully!');
+      loadSettings(); // Перезагрузка данных после сохранения
+    }
+  });
+}
+
+// Функция для загрузки настроек
 function loadSettings() {
   socket.emit('getObject', 'system.adapter.gsm-dtmf-adapter.0', function (err, obj) {
+    if (err) {
+      console.error('Error loading settings:', err); // Логирование ошибки
+      return;
+    }
+
     if (obj && obj.native) {
       // Загрузка настроек модема
-      document.getElementById('modemPort').value = obj.native.modemPort || '';
+      document.getElementById('modemPort').value = obj.native.modemPort || '/dev/ttyUSB0';
       document.getElementById('baudRate').value = obj.native.baudRate || 9600;
 
       // Загрузка пользователей
       const usersTable = document.getElementById('users-table').getElementsByTagName('tbody')[0];
       usersTable.innerHTML = ''; // Очистка таблицы перед загрузкой
-      obj.native.users.forEach(user => {
-        addUser(); // Добавление новой строки
-        const row = usersTable.rows[usersTable.rows.length - 1]; // Получение последней строки
-        row.cells[0].querySelector('input').value = user.name || '';
-        row.cells[1].querySelector('input').value = user.phone || '';
-      });
+      if (obj.native.users) {
+        obj.native.users.forEach(user => {
+          addUser(); // Добавление новой строки
+          const row = usersTable.rows[usersTable.rows.length - 1]; // Получение последней строки
+          row.cells[0].querySelector('input').value = user.name || '';
+          row.cells[1].querySelector('input').value = user.phone || '';
+        });
+      }
 
       // Загрузка устройств
       const devicesTable = document.getElementById('devices-table').getElementsByTagName('tbody')[0];
       devicesTable.innerHTML = ''; // Очистка таблицы перед загрузкой
-      obj.native.devices.forEach(device => {
-        addDevice(); // Добавление новой строки
-        const row = devicesTable.rows[devicesTable.rows.length - 1]; // Получение последней строки
-        row.cells[0].querySelector('input').value = device.managedObject || '';
-        row.cells[1].querySelector('input').value = device.dtmfCommand || '';
-        row.cells[2].querySelector('input').value = device.users.join(', ') || '';
-      });
+      if (obj.native.devices) {
+        obj.native.devices.forEach(device => {
+          addDevice(); // Добавление новой строки
+          const row = devicesTable.rows[devicesTable.rows.length - 1]; // Получение последней строки
+          row.cells[0].querySelector('input').value = device.managedObject || '';
+          row.cells[1].querySelector('input').value = device.dtmfCommand || '';
+          row.cells[2].querySelector('input').value = device.users.join(', ') || '';
+        });
+      }
     }
   });
 }
@@ -132,4 +145,5 @@ document.getElementById('settings-form').addEventListener('submit', function (e)
   saveSettings();
 });
 
+// Загрузка настроек при открытии страницы
 window.onload = loadSettings;
