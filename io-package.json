@@ -19,18 +19,11 @@
   "native": {
     "modemPort": "/dev/ttyUSB0",
     "baudRate": 9600,
-    "users": [
-      {
-        "name": "User 1",
-        "phone": "+1234567890"
-      }
-    ],
-    "devices": [
-      {
-        "managedObject": "light1",
-        "dtmfCommand": "1",
-        "users": ["+1234567890"]
-      }
-    ]
+    "users": [],
+    "devices": []
+  },
+  "admin": {
+    "type": "custom",
+    "customHtml": "admin/index.html"
   }
 }
