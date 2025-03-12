@@ -9,46 +9,48 @@
   <script src="settings.js"></script>
 </head>
 <body>
-  <h1>GSM DTMF Adapter Settings</h1>
-  <form id="settings-form">
-    <label for="modemPort">Modem Port:</label>
-    <input type="text" id="modemPort" name="modemPort" required><br><br>
+  <div class="container">
+    <h1>GSM DTMF Adapter Settings</h1>
+    <form id="settings-form">
+      <label for="modemPort">Modem Port:</label>
+      <input type="text" id="modemPort" name="modemPort" required><br><br>
 
-    <label for="baudRate">Baud Rate:</label>
-    <input type="number" id="baudRate" name="baudRate" required><br><br>
+      <label for="baudRate">Baud Rate:</label>
+      <input type="number" id="baudRate" name="baudRate" required><br><br>
 
-    <h2>Users</h2>
-    <table id="users-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Rows will be added dynamically -->
-      </tbody>
-    </table>
-    <button type="button" onclick="addUser()">Add User</button><br><br>
+      <h2>Users</h2>
+      <table id="users-table" class="highlight">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be added dynamically -->
+        </tbody>
+      </table>
+      <button type="button" class="btn waves-effect waves-light" onclick="addUser()">Add User</button><br><br>
 
-    <h2>Devices</h2>
-    <table id="devices-table">
-      <thead>
-        <tr>
-          <th>Managed Object</th>
-          <th>DTMF Command</th>
-          <th>Users</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Rows will be added dynamically -->
-      </tbody>
-    </table>
-    <button type="button" onclick="addDevice()">Add Device</button><br><br>
+      <h2>Devices</h2>
+      <table id="devices-table" class="highlight">
+        <thead>
+          <tr>
+            <th>Managed Object</th>
+            <th>DTMF Command</th>
+            <th>Users</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be added dynamically -->
+        </tbody>
+      </table>
+      <button type="button" class="btn waves-effect waves-light" onclick="addDevice()">Add Device</button><br><br>
 
-    <button type="submit">Save</button>
-  </form>
+      <button type="submit" class="btn waves-effect waves-light">Save</button>
+    </form>
+  </div>
 </body>
 </html>
