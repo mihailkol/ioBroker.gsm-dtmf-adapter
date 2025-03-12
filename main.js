@@ -1,3 +1,4 @@
+const utils = require('@iobroker/adapter-core');
 const serialport = require('serialport');
 const Readline = require('@serialport/parser-readline');
 const { SerialPort } = serialport;
