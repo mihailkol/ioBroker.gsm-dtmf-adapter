@@ -24,6 +24,6 @@
   },
   "admin": {
     "type": "custom",
-    "customHtml": "admin/index.html"
+    "customHtml": "admin/index_m.html"
   }
 }
