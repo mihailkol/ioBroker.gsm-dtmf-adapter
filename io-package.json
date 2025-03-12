@@ -1,36 +1,36 @@
 {
-    "common": {
-        "name": "gsm-dtmf-adapter",
-        "version": "0.0.1",
-        "title": "GSM DTMF Adapter",
-        "desc": {
-            "en": "Adapter for controlling devices via GSM modem with DTMF",
-            "de": "Adapter zur Steuerung von Geräten über GSM-Modem mit DTMF"
-        },
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "icon": "gsm.png",
-        "enabled": true,
-        "extIcon": "https://iobroker.live/assets/gsm.png",
-        "keywords": [
-            "gsm",
-            "dtmf",
-            "modem"
-        ],
-        "readme": "https://github.com/your-repo/gsm-dtmf-adapter/blob/main/README.md",
-        "materialize": true,
-        "adminUI": {
-            "config": "json"
-        }
+  "common": {
+    "name": "gsm-dtmf-adapter",
+    "version": "0.1.0",
+    "title": "GSM DTMF Adapter",
+    "desc": {
+      "en": "Adapter for controlling devices via GSM modem using DTMF",
+      "ru": "Адаптер для управления устройствами через GSM-модем с использованием DTMF"
     },
-    "native": {
-      "modemPath": "/dev/ttyUSB0",
-      "baudRate": 9600,
-      "users": [
-        {
-          "name": "Default User",
-          "phone": "+79139158466"
-        }
-      ]
-    }
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "gsm-dtmf-adapter.png",
+    "enabled": true,
+    "extIcon": "https://example.com/icon.png",
+    "keywords": ["gsm", "dtmf", "modem"],
+    "readme": "https://github.com/your-repo/gsm-dtmf-adapter/blob/main/README.md",
+    "materialize": true
+  },
+  "native": {
+    "modemPort": "/dev/ttyUSB0",
+    "baudRate": 9600,
+    "users": [
+      {
+        "name": "User 1",
+        "phone": "+1234567890"
+      }
+    ],
+    "devices": [
+      {
+        "managedObject": "light1",
+        "dtmfCommand": "1",
+        "users": ["+1234567890"]
+      }
+    ]
+  }
 }
