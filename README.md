@@ -1,6 +1,14 @@
 ![Logo](admin/gsm-dtmf-adapter.png)
 # ioBroker.gsm-dtmf-adapter
 
+## Установка зависимостей
+
+После установки адаптера выполните следующие команды:
+
+```bash
+cd /opt/iobroker/node_modules/iobroker.gsm-dtmf-adapter
+npm install
+
 [![NPM version](https://img.shields.io/npm/v/iobroker.gsm-dtmf-adapter.svg)](https://www.npmjs.com/package/iobroker.gsm-dtmf-adapter)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.gsm-dtmf-adapter.svg)](https://www.npmjs.com/package/iobroker.gsm-dtmf-adapter)
 ![Number of Installations](https://iobroker.live/badges/gsm-dtmf-adapter-installed.svg)
