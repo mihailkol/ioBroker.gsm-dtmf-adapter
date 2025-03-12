@@ -1,7 +1,6 @@
-const utils = require('@iobroker/adapter-core');
-const serialport = require('serialport');
-const Readline = require('@serialport/parser-readline');
-const { SerialPort } = serialport;
+const utils = require('@iobroker/adapter-core'); // Импорт utils
+const { SerialPort } = require('serialport'); // Импорт SerialPort
+const { ReadlineParser } = require('@serialport/parser-readline'); // Импорт ReadlineParser
 
 class GsmDtmfAdapter extends utils.Adapter {
 
@@ -27,7 +26,8 @@ class GsmDtmfAdapter extends utils.Adapter {
             baudRate: baudRate,
         });
 
-        const parser = this.modem.pipe(new Readline({ delimiter: '\r\n' }));
+        // Используем ReadlineParser вместо Readline
+        const parser = this.modem.pipe(new ReadlineParser({ delimiter: '\r\n' }));
         parser.on('data', this.handleModemData.bind(this));
 
         // Загрузка пользователей и устройств
