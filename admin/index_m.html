@@ -18,39 +18,49 @@
       <label for="baudRate">Baud Rate:</label>
       <input type="number" id="baudRate" name="baudRate" required><br><br>
 
-      <h2>Users</h2>
-      <table id="users-table" class="highlight">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Rows will be added dynamically -->
-        </tbody>
-      </table>
-      <button type="button" class="btn waves-effect waves-light" onclick="addUser()">Add User</button><br><br>
-
-      <h2>Devices</h2>
-      <table id="devices-table" class="highlight">
-        <thead>
-          <tr>
-            <th>Managed Object</th>
-            <th>DTMF Command</th>
-            <th>Users</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Rows will be added dynamically -->
-        </tbody>
-      </table>
-      <button type="button" class="btn waves-effect waves-light" onclick="addDevice()">Add Device</button><br><br>
-
       <button type="submit" class="btn waves-effect waves-light">Save</button>
     </form>
   </div>
+
+  <script>
+    // Загрузка настроек при открытии страницы
+    function loadSettings() {
+      socket.emit('getObject', 'system.adapter.gsm-dtmf-adapter.0', function (err, obj) {
+        if (obj && obj.native) {
+          document.getElementById('modemPort').value = obj.native.modemPort || '/dev/ttyUSB0';
+          document.getElementById('baudRate').value = obj.native.baudRate || 9600;
+        }
+      });
+    }
+
+    // Сохранение настроек
+    function saveSettings() {
+      const modemPort = document.getElementById('modemPort').value;
+      const baudRate = document.getElementById('baudRate').value;
+
+      const settings = {
+        modemPort,
+        baudRate
+      };
+
+      socket.emit('setObject', 'system.adapter.gsm-dtmf-adapter.0', { native: settings }, function (err) {
+        if (err) {
+          alert('Error saving settings: ' + err);
+        } else {
+          alert('Settings saved successfully!');
+          loadSettings(); // Перезагрузка данных после сохранения
+        }
+      });
+    }
+
+    // Обработка отправки формы
+    document.getElementById('settings-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      saveSettings();
+    });
+
+    // Загрузка настроек при открытии страницы
+    window.onload = loadSettings;
+  </script>
 </body>
 </html>
