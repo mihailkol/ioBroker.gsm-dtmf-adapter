@@ -14,15 +14,18 @@ class GsmDtmfAdapter extends utils.Adapter {
     }
 
     async onReady() {
-        this.log.info('Adapter is ready');
-
-        // Создаём папки и объекты
-        await this.createFoldersAndObjects();
-
-        // Инициализация модема
-        await this.initializeModem();
-
-        this.log.info('Adapter initialized');
+      this.log.info('Adapter is ready');
+    
+      // Создаём папки и объекты
+      await this.createFoldersAndObjects();
+    
+      // Инициализация модема
+      await this.initializeModem();
+    
+      // Подписываемся на изменения объекта modemSettings
+      this.subscribeStates('modemSettings');
+    
+      this.log.info('Adapter initialized');
     }
 
     async createFoldersAndObjects() {
@@ -46,35 +49,46 @@ class GsmDtmfAdapter extends utils.Adapter {
             native: {},
         });
 
-        // Создаём объект для настроек модема
-        await this.setObjectNotExistsAsync('modemSettings', {
-            type: 'state',
-            common: {
-                name: 'Modem Settings',
-                desc: 'Modem port and baud rate',
-                type: 'object',
-                role: 'settings',
-                read: true,
-                write: true,
-            },
-            native: {},
-        });
+      // Создаём объект для настроек модема
+      await this.setObjectNotExistsAsync('modemSettings', {
+        type: 'state',
+        common: {
+          name: 'Modem Settings',
+          desc: 'Modem port and baud rate',
+          type: 'object',
+          role: 'settings',
+          read: true,
+          write: true,
+        },
+        native: {},
+      });
 
-        // Загружаем настройки модема
-        const modemSettings = await this.getStateAsync('modemSettings');
-        if (modemSettings && modemSettings.val) {
-            this.config.modemPort = modemSettings.val.port || '/dev/ttyUSB0';
-            this.config.baudRate = modemSettings.val.baudRate || 9600;
-        } else {
-            // Устанавливаем настройки по умолчанию
-            await this.setStateAsync('modemSettings', {
-                val: {
-                    port: '/dev/ttyUSB0',
-                    baudRate: 9600,
-                },
-                ack: true,
-            });
+      // Загружаем настройки модема
+      const modemSettings = await this.getStateAsync('modemSettings');
+      if (modemSettings && modemSettings.val) {
+        this.config.modemPort = modemSettings.val.port || '/dev/ttyUSB0';
+        this.config.baudRate = modemSettings.val.baudRate || 9600;
+      } else {
+        // Устанавливаем настройки по умолчанию
+        await this.setStateAsync('modemSettings', {
+          val: {
+            port: '/dev/ttyUSB0',
+            baudRate: 9600,
+          },
+          ack: true,
+        });
+      }
+    }
+    
+    // Обработка изменений объекта modemSettings
+    onStateChange(id, state) {
+      if (id === 'modemSettings') {
+        if (state && state.val) {
+          this.config.modemPort = state.val.port;
+          this.config.baudRate = state.val.baudRate;
+          this.initializeModem(); // Переинициализация модема с новыми настройками
         }
+      }
     }
 
     async initializeModem() {
