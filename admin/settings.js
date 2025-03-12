@@ -82,15 +82,17 @@ function saveSettings() {
   };
 
   // Отправка настроек на сервер
-  socket.emit('setObject', 'system.adapter.gsm-dtmf-adapter.0', { native: settings }, function (err) {
-    if (err) {
-      alert('Error saving settings: ' + err);
-    } else {
-      alert('Settings saved successfully!');
-      loadSettings(); // Перезагрузка данных после сохранения
-    }
-  });
-}
+console.log('Saving settings:', settings); // Логирование данных перед отправкой
+socket.emit('setObject', 'system.adapter.gsm-dtmf-adapter.0', { native: settings }, function (err) {
+  if (err) {
+    console.error('Error saving settings:', err); // Логирование ошибки
+    alert('Error saving settings: ' + err);
+  } else {
+    console.log('Settings saved successfully!'); // Логирование успеха
+    alert('Settings saved successfully!');
+    loadSettings(); // Перезагрузка данных после сохранения
+  }
+});
 
 // Загрузка настроек при открытии страницы
 function loadSettings() {
