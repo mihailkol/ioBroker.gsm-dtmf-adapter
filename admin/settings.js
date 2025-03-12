@@ -40,32 +40,40 @@ function deleteDevice(button) {
   row.remove();
 }
 
-// Функция для сохранения настроек
 function saveSettings() {
   const modemPort = document.getElementById('modemPort').value;
   const baudRate = document.getElementById('baudRate').value;
 
+  // Сбор данных о пользователях
   const users = [];
   const usersTable = document.getElementById('users-table').getElementsByTagName('tbody')[0];
   for (let i = 0; i < usersTable.rows.length; i++) {
     const row = usersTable.rows[i];
-    users.push({
-      name: row.cells[0].querySelector('input').value,
-      phone: row.cells[1].querySelector('input').value
-    });
+    const name = row.cells[0].querySelector('input').value;
+    const phone = row.cells[1].querySelector('input').value;
+    if (name && phone) { // Проверка, чтобы пустые строки не добавлялись
+      users.push({ name, phone });
+    }
   }
 
+  // Сбор данных об устройствах
   const devices = [];
   const devicesTable = document.getElementById('devices-table').getElementsByTagName('tbody')[0];
   for (let i = 0; i < devicesTable.rows.length; i++) {
     const row = devicesTable.rows[i];
-    devices.push({
-      managedObject: row.cells[0].querySelector('input').value,
-      dtmfCommand: row.cells[1].querySelector('input').value,
-      users: row.cells[2].querySelector('input').value.split(',').map(s => s.trim())
-    });
+    const managedObject = row.cells[0].querySelector('input').value;
+    const dtmfCommand = row.cells[1].querySelector('input').value;
+    const usersString = row.cells[2].querySelector('input').value;
+    if (managedObject && dtmfCommand && usersString) { // Проверка на пустые строки
+      devices.push({
+        managedObject,
+        dtmfCommand,
+        users: usersString.split(',').map(s => s.trim()) // Разделение пользователей по запятой
+      });
+    }
   }
 
+  // Формирование объекта настроек
   const settings = {
     modemPort,
     baudRate,
@@ -73,11 +81,13 @@ function saveSettings() {
     devices
   };
 
+  // Отправка настроек на сервер
   socket.emit('setObject', 'system.adapter.gsm-dtmf-adapter.0', { native: settings }, function (err) {
     if (err) {
       alert('Error saving settings: ' + err);
     } else {
       alert('Settings saved successfully!');
+      loadSettings(); // Перезагрузка данных после сохранения
     }
   });
 }
@@ -86,28 +96,29 @@ function saveSettings() {
 function loadSettings() {
   socket.emit('getObject', 'system.adapter.gsm-dtmf-adapter.0', function (err, obj) {
     if (obj && obj.native) {
+      // Загрузка настроек модема
       document.getElementById('modemPort').value = obj.native.modemPort || '';
       document.getElementById('baudRate').value = obj.native.baudRate || 9600;
 
       // Загрузка пользователей
       const usersTable = document.getElementById('users-table').getElementsByTagName('tbody')[0];
-      usersTable.innerHTML = '';
+      usersTable.innerHTML = ''; // Очистка таблицы перед загрузкой
       obj.native.users.forEach(user => {
-        addUser();
-        const row = usersTable.rows[usersTable.rows.length - 1];
-        row.cells[0].querySelector('input').value = user.name;
-        row.cells[1].querySelector('input').value = user.phone;
+        addUser(); // Добавление новой строки
+        const row = usersTable.rows[usersTable.rows.length - 1]; // Получение последней строки
+        row.cells[0].querySelector('input').value = user.name || '';
+        row.cells[1].querySelector('input').value = user.phone || '';
       });
 
       // Загрузка устройств
       const devicesTable = document.getElementById('devices-table').getElementsByTagName('tbody')[0];
-      devicesTable.innerHTML = '';
+      devicesTable.innerHTML = ''; // Очистка таблицы перед загрузкой
       obj.native.devices.forEach(device => {
-        addDevice();
-        const row = devicesTable.rows[devicesTable.rows.length - 1];
-        row.cells[0].querySelector('input').value = device.managedObject;
-        row.cells[1].querySelector('input').value = device.dtmfCommand;
-        row.cells[2].querySelector('input').value = device.users.join(', ');
+        addDevice(); // Добавление новой строки
+        const row = devicesTable.rows[devicesTable.rows.length - 1]; // Получение последней строки
+        row.cells[0].querySelector('input').value = device.managedObject || '';
+        row.cells[1].querySelector('input').value = device.dtmfCommand || '';
+        row.cells[2].querySelector('input').value = device.users.join(', ') || '';
       });
     }
   });
