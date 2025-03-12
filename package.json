@@ -1,22 +1,14 @@
-{
-  "name": "iobroker.gsm-dtmf-adapter",
-  "version": "0.1.0",
-  "description": "Adapter for controlling devices via GSM modem using DTMF",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "gsm",
-    "dtmf",
-    "modem",
-    "iobroker"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "dependencies": {
-    "@iobroker/adapter-core": "^2.6.0",
-    "@serialport/parser-readline": "^10.0.0",
-    "serialport": "^10.0.0"
-  }
-}
+   {
+     "name": "iobroker.gsm-adapter",
+     "version": "0.0.2",
+     "description": "GSM modem control adapter for IOBroker",
+     "main": "index.js",
+     "scripts": {
+       "test": "echo "Error: no test specified" && exit 1"
+     },
+     "dependencies": {
+       "iobroker": "^3.0.0",
+       "serialport": "^10.0.0"
+     }
+   }
+   
